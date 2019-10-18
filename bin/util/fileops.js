@@ -18,7 +18,17 @@ function fileExists(path) {
     }
 }
 
+function create(path, content){
+    fs.writeFileSync(path, content);
+}
+
+function createDir(path){
+    fs.mkdirSync(path, {mode: '0755'});
+}
+
 module.exports = {
     dirExists,
     fileExists,
+    create,
+    createDir
 };
