@@ -1,5 +1,4 @@
 const fs = require('fs');
-
 const Logger = require('../util/logger');
 const constants = require('../util/constants');
 const fileops = require('../util/fileops');
@@ -47,19 +46,49 @@ module.exports = ${name}Controller;
 `);
 }
 
-function router(name){
+function router(name, nameCamel){
     return (
-`const ${name}Router = require('express').Router();
-const { ${name}Controller } = require('../controllers');
+`const ${nameCamel}Router = require('express').Router();
+const ${name}Controller = require('../controllers/${name}Controller');
 
-${name}Router.route('/')
+${nameCamel}Router.route('/')
     .get(${name}Controller.get);
 
-${name}Router.route('/:id')
+${nameCamel}Router.route('/:id')
     .get(${name}Controller.getById);
 
-module.exports = ${name}Router;
+module.exports = ${nameCamel}Router;
 `);
+}
+
+function updateRouter(){
+    if(!fileops.dirExists(constants.ROUTES_DIR)) {
+        Logger.initNotRan();
+        return 1;
+    }
+    let models = [];
+    // TODO Remove fs, implement method in fileops
+    let files = fs.readdirSync(constants.MODELS_DIR);
+    files.map(f => f.split('.')[0]).forEach((file) => {
+        if(file.toLowerCase() !== 'index'){
+            models.push(file);
+        }
+    });
+
+    let modelImports = '';
+    let modelRegisters = '';
+    models.forEach((model, index, array) => {
+        const modelNameCamel = model[0].toLowerCase() + model.slice(1);
+        modelImports += `const ${modelNameCamel}Router = require('./${modelNameCamel}Router');\n`;
+        modelRegisters += `app.use('/${modelNameCamel}', ${modelNameCamel}Router);`;
+        modelRegisters += (index === array.length - 1) ? '' : '\n\t\t'
+    });
+
+    let updatedRoutersIndex = constants.ROUTES_INDEX
+        .replace(constants.IMPORT_ROUTES_PATTERN, modelImports)
+        .replace(constants.REGISTER_ROUTES_PATTERN, modelRegisters);
+
+    fileops.create(`${constants.ROUTES_DIR}/${constants.INDEX_FILE}`, updatedRoutersIndex);
 }
 
 function add(name){
@@ -67,7 +96,6 @@ function add(name){
         fileops.dirExists(constants.CONTROLLERS_DIR)
         && fileops.dirExists(constants.MODELS_DIR)
         && fileops.dirExists(constants.ROUTES_DIR)
-        && fileops.fileExists(`${constants.CONTROLLERS_DIR}/${constants.INDEX_FILE}`)
         && fileops.fileExists(`${constants.ROUTES_DIR}/${constants.INDEX_FILE}`))
     ){
         Logger.initNotRan();
@@ -94,8 +122,8 @@ function add(name){
         try{
             fileops.create(`${constants.MODELS_DIR}/${name}.js`, model(name, nameCamel));
             fileops.create(`${constants.CONTROLLERS_DIR}/${name}Controller.js`, controller(name, nameCamel));
-            fileops.create(`${constants.ROUTES_DIR}/${name}Router.js`, router(name));
-
+            fileops.create(`${constants.ROUTES_DIR}/${nameCamel}Router.js`, router(name, nameCamel));
+            updateRouter();
         }catch(error){
             Logger.writeHasFailed();
         }

@@ -44,10 +44,6 @@ function routesDirExists(){
     console.log(chalk.red('Operation has failed, \'routes\' directory already exists!'));
 }
 
-function controllersHasIndexFile(){
-    console.log(chalk.red('Operation has failed, \'controllers\' directory already has an index file!'));
-}
-
 function routesHasIndexFile(){
     console.log(chalk.red('Operation has failed, \'routes\' directory already has an index file!'));
 }
@@ -77,7 +73,6 @@ module.exports = {
     modelsDirExists,
     controllersDirExists,
     routesDirExists,
-    controllersHasIndexFile,
     routesHasIndexFile,
     writeHasFailed
 };

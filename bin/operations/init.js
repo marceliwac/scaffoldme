@@ -16,10 +16,6 @@ function init(){
         Logger.routesDirExists();
         return 1;
     }
-    if(fileops.fileExists(`${constants.CONTROLLERS_DIR}/${constants.INDEX_FILE}`)){
-        Logger.controllersHasIndexFile();
-        return 1;
-    }
     if(fileops.fileExists(`${constants.ROUTES_DIR}/${constants.INDEX_FILE}`)){
         Logger.routesHasIndexFile();
         return 1;
@@ -29,8 +25,7 @@ function init(){
         fileops.createDir(constants.CONTROLLERS_DIR);
         fileops.createDir(constants.MODELS_DIR);
         fileops.createDir(constants.ROUTES_DIR);
-        fs.create(`${constants.CONTROLLERS_DIR}/${constants.INDEX_FILE}`, constants.CONTROLLERS_INDEX);
-        fs.create(`${constants.ROUTES_DIR}/${constants.INDEX_FILE}`, constants.ROUTES_INDEX);
+        fs.writeFileSync(`${constants.ROUTES_DIR}/${constants.INDEX_FILE}`, constants.ROUTES_INDEX);
     } catch (error) {
         Logger.writeHasFailed(error);
     }
