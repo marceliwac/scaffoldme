@@ -1,7 +1,7 @@
 {
   "name": "@marceliwac/scaffoldme",
-  "version": "0.0.1",
-  "description": "The scaffolder of your Mongoose-Express REST-ful application.",
+  "version": "0.0.2",
+  "description": "The scaffolder for your Mongoose-Express REST-ful application.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
   },
   "preferGlobal": true,
   "bin": {
-    "scaffoldme" : "bin/util/fileops.js"
+    "scaffoldme": "bin/util/fileops.js"
   },
   "keywords": [
     "mongoose",
