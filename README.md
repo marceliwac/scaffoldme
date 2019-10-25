@@ -1,8 +1,8 @@
 # ScaffoldME
 
-![Version](https://img.shields.io/npm/v/@marceliwac/scaffold-me?color=informational)
-![License](https://img.shields.io/github/license/marceliwac/scaffold-me?color=informational)
-![Downloads](https://img.shields.io/npm/dt/@marceliwac/scaffold-me)
+![Version](https://img.shields.io/npm/v/@marceliwac/scaffoldme?color=informational)
+![License](https://img.shields.io/github/license/marceliwac/scaffoldme?color=informational)
+![Downloads](https://img.shields.io/npm/dt/@marceliwac/scaffoldme)
 ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2019-orange)
 
 ScaffoldME is your tool for getting up and running with [Mongoose](https://mongoosejs.com/)
