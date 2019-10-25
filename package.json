@@ -1,14 +1,14 @@
 {
-  "name": "@marceliwac/scaffold-me",
+  "name": "@marceliwac/scaffoldme",
   "version": "0.0.1",
-  "description": "The scaffolder of your Mongoose-express application.",
+  "description": "The scaffolder of your Mongoose-Express REST-ful application.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marceliwac/scaffold-me.git"
+    "url": "https://github.com/marceliwac/scaffoldme"
   },
   "preferGlobal": true,
   "bin": {
@@ -26,9 +26,9 @@
   "author": "Marceli Wac",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/marceliwac/scaffold-me/issues"
+    "url": "https://github.com/marceliwac/scaffoldme/issues"
   },
-  "homepage": "https://github.com/marceliwac/scaffold-me#readme",
+  "homepage": "https://github.com/marceliwac/scaffoldme#readme",
   "dependencies": {
     "chalk": "^2.4.2"
   }
