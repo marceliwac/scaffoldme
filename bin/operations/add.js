@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Logger = require('../util/logger');
 const constants = require('../util/constants');
 const fileops = require('../util/fileops');
@@ -66,14 +65,7 @@ function updateRouter(){
         Logger.initNotRan();
         return 1;
     }
-    let models = [];
-    // TODO Remove fs, implement method in fileops
-    let files = fs.readdirSync(constants.MODELS_DIR);
-    files.map(f => f.split('.')[0]).forEach((file) => {
-        if(file.toLowerCase() !== 'index'){
-            models.push(file);
-        }
-    });
+    let models = fileops.getModels();
 
     let modelImports = '';
     let modelRegisters = '';

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const constants = require('./constants');
 
 function dirExists(path) {
     try {
@@ -26,9 +27,22 @@ function createDir(path){
     fs.mkdirSync(path, {mode: '0755'});
 }
 
+function getModels(){
+    let models = [];
+    fs.readdirSync(constants.MODELS_DIR)
+        .map(f => f.split('.')[0])
+        .forEach((file) => {
+        if(file.toLowerCase() !== 'index'){
+            models.push(file);
+        }
+    });
+    return models;
+}
+
 module.exports = {
     dirExists,
     fileExists,
     create,
-    createDir
+    createDir,
+    getModels
 };
